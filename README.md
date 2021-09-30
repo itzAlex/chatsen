@@ -1,7 +1,7 @@
 <p align="middle">
 <img align="middle" height="96" src="assets/ayyybubu/forsenShrimp/original.png">
 <p>
-<h1 align="middle">Chatsen</h1>
+<h1 align="middle">Chatsen Homies</h1>
 
 <p align="middle" float="left">
   <a href="https://chatsen.app/discord"><img src="https://img.shields.io/discord/758710852756570153.svg?label=&logo=discord&logoColor=ffffff&color=5865F2&labelColor=5C5C5C"></a>
@@ -13,7 +13,7 @@
   <a href="https://play.google.com/store/apps/details?id=com.chatsen.chatsen"><img height="75" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"></a>
 </p>
 
-Chatsen is a cross-platform application that allows you to chat on Twitch with support for 3rd-party services such as 7TV, BTTV and FFZ.  
+Chatsen Homies is a cross-platform application that allows you to chat on Twitch with support for 3rd-party services such as 7TV, BTTV, FFZ and Homies.  
 It also features a built-in video player and a variety of other features, such as auto-completion, notifications (on supported platforms), whispers, and more to come!
 
 # Media
