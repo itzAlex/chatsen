@@ -456,6 +456,29 @@ class Channel {
     emotes.clear();
 
     try {
+      var emotesRequest = await http.get(Uri.parse('https://itzalex.github.io/emotes'));
+      var jsonRequest = jsonDecode(emotesRequest.body);
+
+      for (var emoteData in jsonRequest['data']['channel_emotes'][id.toString()]['emotes']) {
+        var emote = Emote(
+          name: emoteData['name'],
+          id: emoteData['id'],
+          provider: 'Homies',
+          mipmap: [
+            'https://itzalex.github.io/emote/${emoteData["id"]}/1x',
+            'https://itzalex.github.io/emote/${emoteData["id"]}/2x',
+            'https://itzalex.github.io/emote/${emoteData["id"]}/3x',
+          ],
+        );
+
+        emotes.add(emote);
+      }
+    } catch (e) {
+      print(e);
+      print("Couldn't fetch Homies emotes");
+    }
+
+    try {
       var emotesRequest = await http.get(Uri.parse('https://api.frankerfacez.com/v1/room/id/$id'));
       var jsonRequest = jsonDecode(emotesRequest.body);
 
@@ -1021,6 +1044,28 @@ class Client {
     } catch (e) {
       // print(e);
       print('Couldn\'t load emojis');
+    }
+
+    try {
+      var emotesRequest = await http.get(Uri.parse('https://itzalex.github.io/emotes'));
+      var jsonRequest = jsonDecode(emotesRequest.body);
+
+      for (var emoteData in jsonRequest['data']['global_emotes']) {
+        var emote = Emote(
+          name: emoteData['name'],
+          id: emoteData['id'],
+          provider: 'Homies',
+          mipmap: [
+            'https://itzalex.github.io/emote/${emoteData["id"]}/1x',
+            'https://itzalex.github.io/emote/${emoteData["id"]}/2x',
+            'https://itzalex.github.io/emote/${emoteData["id"]}/3x',
+          ],
+        );
+
+        emotes.add(emote);
+      }
+    } catch (e) {
+      print("Couldn't fetch Homies emotes");
     }
 
     try {
