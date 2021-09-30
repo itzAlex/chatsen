@@ -345,7 +345,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 SettingsEntry(
                   category: 'About',
                   // title: 'Check for updates',
-                  title: 'About Chatsen',
+                  title: 'About Chatsen Homies',
                   description: 'Version',
                   builder: (context, category, title, description) => FutureBuilder<PackageInfo>(
                     future: PackageInfo.fromPlatform(),
@@ -415,7 +415,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 // ),
                                 IconButton(
                                   icon: Icon(FontAwesomeIcons.github),
-                                  onPressed: () => launch('https://github.com/chatsen/chatsen'),
+                                  onPressed: () => launch('https://github.com/itzAlex/chatsen'),
                                 ),
                                 IconButton(
                                   icon: Icon(FontAwesomeIcons.patreon),
