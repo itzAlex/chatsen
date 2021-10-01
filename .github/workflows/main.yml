@@ -7,13 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          repository: chatsen/signingkeys
-          token: ${{secrets.GHKEY}}
-          path: signingkeys
-
-      - uses: actions/checkout@v2
-        with:
-          token: ${{secrets.GHKEY}}
+          token: ${{secrets.GITHUB_TOKEN}}
           path: chatsen
 
       - uses: actions/setup-java@v1
@@ -41,19 +35,13 @@ jobs:
       - name: Generate project files and cleanup
         working-directory: ./chatsen
         run: |
-          flutter create --org com.chatsen .
+          flutter create --org com.itzalex .
           rm -rf test
           sed -i '/<\/manifest>/i \ \ \ \ <uses-sdk tools:overrideLibrary="io.flutter.plugins.webviewflutter"/>' ./android/app/src/main/AndroidManifest.xml
           sed -i '/.*package=".*".*/i \ \ \ \ xmlns:tools="http://schemas.android.com/tools"' ./android/app/src/main/AndroidManifest.xml
-          sed -i 's/android:label=".*"/android:label="Chatsen"/' ./android/app/src/main/AndroidManifest.xml
+          sed -i 's/android:label=".*"/android:label="Chatsen Homies"/' ./android/app/src/main/AndroidManifest.xml
           sed -i '/.*package=".*".*/a \ \ \ <uses-permission android:name="android.permission.INTERNET"/>' ./android/app/src/main/AndroidManifest.xml
           sed -i '/.*release {.*/a \ \ \ \ \ \ \ \ \ \ \ \ shrinkResources false\n\ \ \ \ \ \ \ \ \ \ \ \ minifyEnabled false' ./android/app/build.gradle
-          # sed -i 's/minSdkVersion 16/minSdkVersion 19/' ./android/app/build.gradle
-          sed -i '/android {/i def keystoreProperties = new Properties()\ndef keystorePropertiesFile = rootProject.file('\''../../signingkeys/key.properties'\'')\nif (keystorePropertiesFile.exists()) {\n    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))\n}\n' ./android/app/build.gradle
-          sed -i '/.*buildTypes {/i \ \ \ \ signingConfigs {\n\ \ \ \ \ \ \ \ release {\n\ \ \ \ \ \ \ \ \ \ \ \ keyAlias keystoreProperties['\''keyAlias'\'']\n\ \ \ \ \ \ \ \ \ \ \ \ keyPassword keystoreProperties['\''keyPassword'\'']\n\ \ \ \ \ \ \ \ \ \ \ \ storeFile keystoreProperties['\''storeFile'\''] ? file(keystoreProperties['\''storeFile'\'']) : null\n\ \ \ \ \ \ \ \ \ \ \ \ storePassword keystoreProperties['\''storePassword'\'']\n\ \ \ \ \ \ \ \ }\n\ \ \ \ }' ./android/app/build.gradle
-          sed -i 's/signingConfig signingConfigs.debug/signingConfig signingConfigs.release/' ./android/app/build.gradle
-          sed -i "/io.flutter.embedding.android.FlutterActivity/a import android.os.Bundle\nimport android.os.Build\nimport androidx.annotation.NonNull\nimport io.flutter.embedding.android.FlutterActivityLaunchConfigs.BackgroundMode.transparent\nimport io.flutter.embedding.engine.FlutterEngine\nimport io.flutter.plugins.GeneratedPluginRegistrant" android/app/src/main/kotlin/com/chatsen/chatsen/MainActivity.kt
-          sed -i "/FlutterActivity()/a \ \ \ \ override fun onCreate(savedInstanceState: Bundle?) {\n\ \ \ \ \ \ \ \ super.onCreate(savedInstanceState)\n\ \ \ \ \ \ \ \ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {\n\ \ \ \ \ \ \ \ \ \ \ \ window.setDecorFitsSystemWindows(false)\n\ \ \ \ \ \ \ \ }\n\ \ \ \ }" android/app/src/main/kotlin/com/chatsen/chatsen/MainActivity.kt
           flutter pub run flutter_launcher_icons:main
           flutter build apk
 
@@ -73,36 +61,7 @@ jobs:
         with:
           files: ./release/Android.apk
         env:
-          GITHUB_TOKEN: ${{secrets.GHKEY}}
-
-      - name: Generate project files and cleanup
-        if: startsWith(github.ref, 'refs/tags/')
-        working-directory: ./chatsen
-        run: |
-          sed -i 's/kPlayStoreRelease = false/kPlayStoreRelease = true/' ./lib/Consts.dart
-          flutter build appbundle
-
-      - name: Prepare release files
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          cp ./chatsen/build/app/outputs/bundle/release/app-release.aab ./release/PlayStore.aab
-          echo "Sync with Github repository." > whatsnew-en-US
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          name: PlayStore.aab
-          path: ./release/PlayStore.aab
-
-      - uses: r0adkll/upload-google-play@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          packageName: com.chatsen.chatsen
-          serviceAccountJson: ./signingkeys/pc-api-7512701657656671844-671-a7a04005a195.json
-          track: production
-          releaseFiles: ./release/PlayStore.aab
-          whatsNewDirectory: .
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
   ios_build:
     name: iOS Build
@@ -112,7 +71,7 @@ jobs:
 
       - uses: actions/checkout@v2
         with:
-          token: ${{secrets.GHKEY}}
+          token: ${{secrets.GITHUB_TOKEN}}
           path: chatsen
 
       - uses: actions/setup-java@v1
@@ -141,15 +100,14 @@ jobs:
       - name: Generate project files and cleanup
         working-directory: ./chatsen
         run: |
-          flutter create --org com.chatsen .
+          flutter create --org com.itzalex .
           rm -rf test
           gsed -i '/-> Bool {/a \ \ \ \ if #available(iOS 10.0, *) {\ \ \ \ \ \ UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate\ \ \ \ }' ./ios/Runner/AppDelegate.swift
-          gsed -i 's/<string>chatsen<\/string>/<string>Chatsen<\/string>/' ./ios/Runner/Info.plist
+          gsed -i 's/<string>chatsen<\/string>/<string>Chatsen Homies<\/string>/' ./ios/Runner/Info.plist
           gsed -i '/<dict>/a \ \ <key>UIBackgroundModes</key>\n\ \ <array>\n\ \ \ \ <string>audio</string>\n\ \ </array>' ios/Runner/Info.plist
           gsed -i '/<dict>/a \ \ <key>NSPhotoLibraryUsageDescription</key>\n\ \ <string>Chatsen requests to access your files to allow file selection.</string>' ios/Runner/Info.plist
           flutter pub run flutter_launcher_icons:main
           flutter build ios --no-codesign
-          # '<key>UIBackgroundModes</key>\	\<array>\	\	<string>audio</string>\	\	<string>bluetooth-central</string>\	\	<string>bluetooth-peripheral</string>\	\	<string>external-accessory</string>\	\	<string>fetch</string>\	\	<string>location</string>\	\	<string>processing</string>\	\	<string>remote-notification</string>\	\	<string>voip</string>\	\</array>'
 
       - name: Prepare release files and converting .app to .ipa
         run: |
@@ -168,4 +126,4 @@ jobs:
         with:
           files: ./release/iOS.ipa
         env:
-          GITHUB_TOKEN: ${{secrets.GHKEY}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
