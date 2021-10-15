@@ -3,6 +3,8 @@ import 'package:chatsen/Badges/BTTVBadges.dart';
 import 'package:chatsen/Badges/ChatsenBadges.dart';
 import 'package:chatsen/Badges/ChatterinoBadges.dart';
 import 'package:chatsen/Badges/HomiesBadges.dart';
+import 'package:chatsen/Badges/HomiesBadges2.dart';
+import 'package:chatsen/Badges/HomiesBadges3.dart';
 import 'package:chatsen/Badges/ChattyBadges.dart';
 import 'package:chatsen/Badges/FFZAPBadges.dart';
 import 'package:chatsen/Badges/FFZBadges.dart';
@@ -377,7 +379,7 @@ class ChatMessage extends StatelessWidget {
                       //       ),
                       //     ),
                       if (message.user != null)
-                        for (var badge in message.badges + BlocProvider.of<BTTVBadges>(context).getBadgesForUser('${message.user?.id}') + BlocProvider.of<FFZBadges>(context).getBadgesForUser('${message.user?.login?.toLowerCase()}') + BlocProvider.of<FFZAPBadges>(context).getBadgesForUser('${message.user?.id}') + BlocProvider.of<ChatterinoBadges>(context).getBadgesForUser('${message.user?.id}') + BlocProvider.of<HomiesBadges>(context).getBadgesForUser('${message.user?.id}') + BlocProvider.of<ChattyBadges>(context).getBadgesForUser('${message.user?.login}') + BlocProvider.of<SevenTVBadges>(context).getBadgesForUser('${message.user?.id}') + BlocProvider.of<ChatsenBadges>(context).getBadgesForUser('${message.user?.id}'))
+                        for (var badge in message.badges + BlocProvider.of<BTTVBadges>(context).getBadgesForUser('${message.user?.id}') + BlocProvider.of<FFZBadges>(context).getBadgesForUser('${message.user?.login?.toLowerCase()}') + BlocProvider.of<FFZAPBadges>(context).getBadgesForUser('${message.user?.id}') + BlocProvider.of<ChatterinoBadges>(context).getBadgesForUser('${message.user?.id}') + BlocProvider.of<ChattyBadges>(context).getBadgesForUser('${message.user?.login}') + BlocProvider.of<SevenTVBadges>(context).getBadgesForUser('${message.user?.id}') + BlocProvider.of<ChatsenBadges>(context).getBadgesForUser('${message.user?.id}') + BlocProvider.of<HomiesBadges3>(context).getBadgesForUser('${message.user?.id}') + BlocProvider.of<HomiesBadges>(context).getBadgesForUser('${message.user?.id}') + BlocProvider.of<HomiesBadges2>(context).getBadgesForUser('${message.user?.id}'))
                           WidgetSpan(
                             child: WidgetTooltip(
                               message: Padding(

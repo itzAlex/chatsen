@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:chatsen/Accounts/AccountsCubit.dart';
 import 'package:chatsen/Badges/ChatterinoBadges.dart';
 import 'package:chatsen/Badges/HomiesBadges.dart';
+import 'package:chatsen/Badges/HomiesBadges2.dart';
+import 'package:chatsen/Badges/HomiesBadges3.dart';
 import 'package:chatsen/Badges/FFZBadges.dart';
 import 'package:chatsen/Commands/Command.dart';
 import 'package:chatsen/Commands/CommandsCubit.dart';
@@ -60,6 +62,8 @@ Future<void> appRunner() async {
         BlocProvider(create: (BuildContext context) => FFZBadges()),
         BlocProvider(create: (BuildContext context) => BTTVBadges()),
         BlocProvider(create: (BuildContext context) => HomiesBadges()),
+        BlocProvider(create: (BuildContext context) => HomiesBadges2()),
+        BlocProvider(create: (BuildContext context) => HomiesBadges3()),
         BlocProvider(create: (BuildContext context) => ChattyBadges()),
         BlocProvider(create: (BuildContext context) => ChatterinoBadges()),
         BlocProvider(create: (BuildContext context) => SevenTVBadges()),
