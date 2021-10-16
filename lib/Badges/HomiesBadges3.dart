@@ -23,14 +23,14 @@ class HomiesBadges3 extends Cubit<Map<String, List<twitch.Badge>>> {
         twitch.Badge(
           title: badgeData['tooltip'],
           description: null,
-          id: base64Encode(badgeData['tooltip'].codeUnits),
+          id: null,
           mipmap: [
             badgeData['image1'],
             badgeData['image2'],
             badgeData['image3'],
           ],
-          name: base64Encode(badgeData['tooltip'].codeUnits),
-          tag: base64Encode(badgeData['tooltip'].codeUnits),
+          name: null,
+          tag: null,
         ),
       );
     }

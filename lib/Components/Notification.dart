@@ -35,7 +35,6 @@ class _NotificationWrapperState extends State<NotificationWrapper> {
         android: AndroidNotificationDetails(
           'Twitchat',
           'Twitchat',
-          'Twitchat',
           importance: Importance.max,
           priority: Priority.max,
         ),
